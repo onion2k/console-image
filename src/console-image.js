@@ -1,39 +1,45 @@
 import toHex from './toHex';
 
-export default function imageToConsole() {
+export default function imageToConsole(w,h) {
 
-    var img = document.createElement('img');
-    img.src = 'vangogh.jpg';
-    img.onload = function(){
+    let promise = new Promise(function(resolve,reject){
 
-        var s = "";
-        var cols = [];
+        let img = document.createElement('img');
+        img.src = 'vangogh.jpg';
+        img.addEventListener('load', () => {
 
-        var c = document.createElement('canvas');
-        c.width  = img.width+2;
-        c.height = img.height+2;
+            let s = '';
+            let cols = [];
+            let w = w || 40;
+            let h = h || 40;
 
-        var ctx = c.getContext('2d');
-        ctx.fillStyle = 'white';
-        ctx.fillRect(0,0,120,40);
+            let c = document.createElement('canvas');
+                c.width  = w;
+                c.height = h;
 
-        ctx.drawImage(img,1,1);
+            let ctx = c.getContext('2d');
+            ctx.fillStyle = 'black';
+            ctx.fillRect(0,0,w,h);
 
-        for (var y = 0; y < img.height+2; y++) {
-            if (y > 0) { s += '\n'; }
-            for (var x = 0; x < img.width+2; x++) {
-                s += '%c  ';
-                var col = ctx.getImageData(x, y, 1, 1).data;
-                var hex = "#" + ("000000" + toHex(col[0], col[1], col[2])).slice(-6);
-                cols.push('background-color:'+hex+';');
+            ctx.drawImage(img,1,1,w-2,h-2);
+
+            for (let y = 0; y < h; y++) {
+                if (y > 0) { s += '\n'; }
+                for (let x = 0; x < w; x++) {
+                    s += '%c  ';
+                    let col = ctx.getImageData(x, y, 1, 1).data;
+                    let hex = "#" + ("000000" + toHex(col[0], col[1], col[2])).slice(-6);
+                    cols.push('background-color:'+hex+';');
+                }
             }
-        }
 
-        cols.unshift(s);
+            cols.unshift(s);
+            resolve(cols);
 
-        console.log.apply(console, cols);
+        });
 
+    });
 
-    }
+    return promise;
 
 }
