@@ -1,3 +1,5 @@
 import imageToConsole from './console-image.js';
 
-imageToConsole();
+imageToConsole().then(function(consoleImage){
+    console.log.apply(console, consoleImage);
+})
