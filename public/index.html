@@ -2,6 +2,39 @@
 
 	<h1 style="text-align: center">Open your console.</h1>
 
+	<form id="droptarget" style="border: 1px solid #888; width: 100%; height: 300px;" enctype="multipart/form-data"></form>
+
 	<script src="index.es6.js"></script>
+
+	<script>
+
+		var f = document.querySelector('#droptarget');
+
+		console.log(f)
+
+
+		window.addEventListener("dragover",function(e){
+			e = e || event;
+			e.preventDefault();
+		},false);
+		window.addEventListener("drop",function(e){
+			e = e || event;
+			e.preventDefault();
+		},false);
+
+		f.addEventListener('drop', function(e) {
+
+			e.preventDefault();
+			e.stopPropagation();
+
+			var droppedFiles = e.dataTransfer;
+
+			console.log(droppedFiles.files);
+
+			return false;
+
+		});
+
+	</script>
 
 </body>
