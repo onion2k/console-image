@@ -2,11 +2,9 @@
 
 	<h1 style="text-align: center">Open your console.</h1>
 
-	-<div id="list"></div>-
-
 	<form id="droptarget" style="border: 1px solid #888; width: 100%; height: 300px;" enctype="multipart/form-data"></form>
 
-	<script src="index.es6.js"></script>
+	<script src="../dist/console.es6.js"></script>
 
 	<script>
 
@@ -41,7 +39,8 @@
 
 							var vAspect = img.height / img.width;
 
-							imageToConsole(img, 60, 60 * vAspect).then(function(consoleImage){
+							imageToConsole(img, 40, 40 * vAspect).then(function(consoleImage){
+								console.clear();
 								console.log.apply(console, consoleImage);
 							});
 						});
@@ -50,7 +49,6 @@
 					};
 				})(img);
 
-				// Read in the image file as a data URL.
 				reader.readAsDataURL(img);
 
 			}
