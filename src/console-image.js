@@ -16,13 +16,20 @@ export default function imageToConsole(img, w, h) {
             ctx.fillRect(0,0,w,h);
             ctx.drawImage(img,1,1,w-2,h-2);
 
+        let phex = '';
+
         for (let y = 0; y < h; y++) {
             if (y > 0) { s += '\n'; }
             for (let x = 0; x < w; x++) {
-                s += '%c  ';
                 let col = ctx.getImageData(x, y, 1, 1).data;
                 let hex = "#" + ("000000" + toHex(col[0], col[1], col[2])).slice(-6);
-                cols.push('background-color:'+hex+';');
+                if (hex != phex) {
+                    phex = hex;
+                    s += '%c  ';
+                    cols.push('background-color:'+hex+';');
+                } else {
+                    s += '  ';
+                }
             }
         }
 

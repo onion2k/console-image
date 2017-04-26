@@ -1,10 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>console-image</title>
+	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+	<link rel="stylesheet" href="../node_modules/normalize.css/normalize.css">
+	<link rel="stylesheet" href="../node_modules/milligram/dist/milligram.min.css">
+	<script src="../dist/console.es6.js"></script>
+	<style>
+		body { padding: 30px; }
+		#cli { font-size: 0.4rem; font-family: monospace; white-space: pre-wrap; }
+	</style>
+</head>
 <body>
 
-	<h1 style="text-align: center">Open your console.</h1>
+	<h1>console-image</h1>
 
-	<form id="droptarget" style="border: 1px solid #888; width: 100%; height: 300px;" enctype="multipart/form-data"></form>
+	<div class="row">
+		<div class="column">
+			<p>Drop an image file in the area to the right to view it in your console.</p>
+		</div>
+		<div class="column">
+			<form id="droptarget" style="border: 1px dashed #888; width: 100%; height: 150px;" enctype="multipart/form-data">
 
-	<script src="../dist/console.es6.js"></script>
+			</form>
+		</div>
+	</div>
+
+	<h1>console.log() <span id="count"></span></h1>
+
+	<div class="row">
+		<div class="column">
+			<div id="cli">A generated console.log() command will appear here when you drop an image on the target above.</div>
+		</div>
+	</div>
 
 	<script>
 
@@ -40,8 +69,16 @@
 							var vAspect = img.height / img.width;
 
 							imageToConsole(img, 40, 40 * vAspect).then(function(consoleImage){
+
 								console.clear();
 								console.log.apply(console, consoleImage);
+
+								var cli = document.querySelector('#cli');
+								cli.innerHTML = "console.log('"+consoleImage+"');";
+
+								var count = document.querySelector('#count');
+								count.innerHTML = consoleImage.length+" characters";
+
 							});
 						});
 
@@ -60,3 +97,4 @@
 	</script>
 
 </body>
+</html>
