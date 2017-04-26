@@ -3,8 +3,8 @@ var path = require('path');
 module.exports = {
     entry: './src/index.js',
     output: {
-        path: __dirname+'/public',
-        filename: 'index.es6.js'
+        path: __dirname+'/dist',
+        filename: 'console.es6.js'
     },
     module: {
         loaders: [{
