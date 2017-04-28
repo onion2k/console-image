@@ -8,21 +8,33 @@
 	<link rel="stylesheet" href="../node_modules/milligram/dist/milligram.min.css">
 	<script src="../dist/console.es6.js"></script>
 	<style>
-		body { padding: 30px; }
+		body { padding: 30px; font-size: 1.5em; }
 		#cli { font-size: 0.4rem; font-family: monospace; white-space: pre-wrap; }
 	</style>
 </head>
 <body>
 
-	<h1>console-image</h1>
 
 	<div class="row">
 		<div class="column">
-			<p>Drop an image file in the area to the right to view it in your console.</p>
+			<h1>console-image</h1>
+			<p>Drag an image file in to the area to the right to view it in your console and generate a console log command for your apps.</p>
+			<h3>Size</h3>
+			<p>Change the size of the generated console-image</p>
+			20 <input type="range" name="size" min="20" max="80" value="40" step="10" list="sizes" style="width: 70%; margin: 0 10px;"/> 80
+			<datalist id="sizes">
+				<option>20</option>
+				<option>30</option>
+				<option>40</option>
+				<option>50</option>
+				<option>60</option>
+				<option>70</option>
+				<option>80</option>
+			</datalist>
 		</div>
 		<div class="column">
-			<form id="droptarget" style="border: 1px dashed #888; width: 100%; height: 150px;" enctype="multipart/form-data">
-
+			<form id="droptarget" style="border: 1px dashed #888; width: 100%; height: 300px; line-height: 300px; text-align: center" enctype="multipart/form-data">
+				Drop an image here.
 			</form>
 		</div>
 	</div>
