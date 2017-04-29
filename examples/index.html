@@ -14,14 +14,21 @@
 </head>
 <body>
 
-
 	<div class="row">
 		<div class="column">
-			<h1>console-image</h1>
+			<h1>console-image.js</h1>
 			<p>Drag an image file in to the area to the right to view it in your console and generate a console log command for your apps.</p>
+		</div>
+		<div class="column">
+			<h1>Make an image</h1>
+			<form id="droptarget" style="border: 1px dashed #888; width: 100%; height: 200px; line-height: 200px; text-align: center" enctype="multipart/form-data">
+				Drop an image here.
+			</form>
 			<h3>Size</h3>
 			<p>Change the size of the generated console-image</p>
-			20 <input type="range" name="size" min="20" max="80" value="40" step="10" list="sizes" style="width: 70%; margin: 0 10px;"/> 80
+			<p class="range-field">
+				20 <input type="range" name="size" min="20" max="80" value="40" step="10" list="sizes" style="width: 70%; margin: 0 10px;"/> 80
+			</p>
 			<datalist id="sizes">
 				<option>20</option>
 				<option>30</option>
@@ -31,18 +38,13 @@
 				<option>70</option>
 				<option>80</option>
 			</datalist>
-		</div>
-		<div class="column">
-			<form id="droptarget" style="border: 1px dashed #888; width: 100%; height: 300px; line-height: 300px; text-align: center" enctype="multipart/form-data">
-				Drop an image here.
-			</form>
+
 		</div>
 	</div>
 
-	<h1>console.log() <span id="count"></span></h1>
-
 	<div class="row">
 		<div class="column">
+			<h1>console.log() <span id="count"></span></h1>
 			<div id="cli">A generated console.log() command will appear here when you drop an image on the target above.</div>
 		</div>
 	</div>

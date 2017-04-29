@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>console-image example</title>
+	<script src="../dist/console.es6.js"></script>
+</head>
+<body>
+<p>Open your console.</p>
+<img id='myimage' src='./hexagon.png' />
+<script>
+    var image = document.querySelector('#myimage');
+    image.addEventListener('load', function(e){
+        imageToConsole(image, 20, 20).then(function(consoleImage){
+            console.clear();
+            console.log.apply(console, consoleImage);
+        });
+    });
+</script>
+</body>
+</html>
