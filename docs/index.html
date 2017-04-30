@@ -29,7 +29,7 @@
 			<h3>Size</h3>
 			<p>Change the size of the generated console-image</p>
 			<p class="range-field">
-				20 <input type="range" name="size" min="20" max="80" value="40" step="10" list="sizes" style="width: 70%; margin: 0 10px;"/> 80
+				20 <input type="range" name="size" id="size" min="20" max="80" value="40" step="10" list="sizes" style="width: 70%; margin: 0 10px;"/> 80
 			</p>
 			<datalist id="sizes">
 				<option>20</option>
@@ -54,6 +54,7 @@
 	<script>
 
 		var f = document.querySelector('#droptarget');
+		var size = document.querySelector('#size');
 
 		window.addEventListener("dragover",function(e){
 			e = e || event;
@@ -83,8 +84,9 @@
 						img.addEventListener('load', function(e){
 
 							var vAspect = img.height / img.width;
+							var size = size.value;
 
-							imageToConsole(img, 40, 40 * vAspect).then(function(consoleImage){
+							imageToConsole(img, size, size * vAspect).then(function(consoleImage){
 
 								console.clear();
 								console.log.apply(console, consoleImage);
