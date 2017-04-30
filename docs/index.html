@@ -84,9 +84,9 @@
 						img.addEventListener('load', function(e){
 
 							var vAspect = img.height / img.width;
-							var size = size.value;
+							var imgsize = size.value;
 
-							imageToConsole(img, size, size * vAspect).then(function(consoleImage){
+							imageToConsole(img, imgsize, imgsize * vAspect).then(function(consoleImage){
 
 								console.clear();
 								console.log.apply(console, consoleImage);
