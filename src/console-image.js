@@ -12,8 +12,6 @@ export default function imageToConsole(img, w, h) {
             c.height = h;
 
         let ctx = c.getContext('2d');
-            ctx.fillStyle = 'black';
-            ctx.fillRect(0,0,w,h);
             ctx.drawImage(img,1,1,w-2,h-2);
 
         let phex = '';
@@ -22,7 +20,7 @@ export default function imageToConsole(img, w, h) {
             if (y > 0) { s += '\n'; }
             for (let x = 0; x < w; x++) {
                 let col = ctx.getImageData(x, y, 1, 1).data;
-                let hex = "#" + ("000000" + toHex(col[0], col[1], col[2])).slice(-6);
+                let hex = "rgba(" + col[0] +","+ col[1] +","+ col[2] +","+ col[3]+")";
                 if (hex != phex) {
                     phex = hex;
                     s += '%c  ';

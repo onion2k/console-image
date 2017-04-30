@@ -4,7 +4,7 @@
   "description": "A hack image-to-console.log toy.",
   "main": "index.js",
   "scripts": {
-    "build": "webpack ./src/index.js ./public/index.min.js -p",
+    "build": "./node_modules/.bin/webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
