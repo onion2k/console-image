@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>console-image</title>
+	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+	<link rel="stylesheet" href="../node_modules/normalize.css/normalize.css">
+	<link rel="stylesheet" href="../node_modules/milligram/dist/milligram.min.css">
+	<script src="../dist/console.es6.js"></script>
+	<style>
+		body { padding: 30px; font-size: 1.5em; }
+		#cli { font-size: 0.4rem; font-family: monospace; white-space: pre-wrap; }
+	</style>
+</head>
+<body>
+
+	<div class="row">
+		<div class="column">
+			<h1>console-image.js</h1>
+			<p>Drag an image file in to the area to the right to view it in your console and generate a console log command for your apps.</p>
+			<p>This library takes an image element and copies it to a canvas, then it loops through each pixel and writes two spaces to the console in the same colour. This has the effect of 'drawing' an image.</p>
+			<p>If you want to extend it to do more than just colour (you could use any CSS property), edit the definition in ./src/console-image.js at line #27.</p>
+		</div>
+		<div class="column">
+			<h1>Make an image</h1>
+			<form id="droptarget" style="border: 1px dashed #888; width: 100%; height: 200px; line-height: 200px; text-align: center" enctype="multipart/form-data">
+				Drop an image here.
+			</form>
+			<h3>Size</h3>
+			<p>Change the size of the generated console-image</p>
+			<p class="range-field">
+				20 <input type="range" name="size" min="20" max="80" value="40" step="10" list="sizes" style="width: 70%; margin: 0 10px;"/> 80
+			</p>
+			<datalist id="sizes">
+				<option>20</option>
+				<option>30</option>
+				<option>40</option>
+				<option>50</option>
+				<option>60</option>
+				<option>70</option>
+				<option>80</option>
+			</datalist>
+
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="column">
+			<h1>console.log() <span id="count"></span></h1>
+			<div id="cli">A generated console.log() command will appear here when you drop an image on the target above.</div>
+		</div>
+	</div>
+
+	<script>
+
+		var f = document.querySelector('#droptarget');
+
+		window.addEventListener("dragover",function(e){
+			e = e || event;
+			e.preventDefault();
+		},false);
+		window.addEventListener("drop",function(e){
+			e = e || event;
+			e.preventDefault();
+		},false);
+
+		f.addEventListener('drop', function(e) {
+
+			e.preventDefault();
+			e.stopPropagation();
+
+			var img = e.dataTransfer.files[0];
+
+			if (img.type.match('image.*')) {
+
+				var reader = new FileReader();
+
+				reader.onload = (function(img) {
+					return function(e) {
+
+						var img = document.createElement('img');
+						img.src = e.target.result;
+						img.addEventListener('load', function(e){
+
+							var vAspect = img.height / img.width;
+
+							imageToConsole(img, 40, 40 * vAspect).then(function(consoleImage){
+
+								console.clear();
+								console.log.apply(console, consoleImage);
+
+								var cli = document.querySelector('#cli');
+								cli.innerHTML = "console.log('"+consoleImage+"');";
+
+								var count = document.querySelector('#count');
+								count.innerHTML = consoleImage.length+" characters";
+
+							});
+						});
+
+
+					};
+				})(img);
+
+				reader.readAsDataURL(img);
+
+			}
+
+			return false;
+
+		});
+
+	</script>
+
+</body>
+</html>
